@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
-import { useDispatch } from 'react-redux'
-import { login } from "../features/userSlice"
 import styled from "styled-components"
+import axios from "axios"
 
 const H1 = styled.h1`
     color:black;
@@ -59,23 +58,31 @@ export default function Login() {
     const [address, setAddress] = useState("")
 
 
-    const dispatch = useDispatch();
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        dispatch(login({
-            name:{fname, lname},
-            password:password,
-            loggedIn:true,
-        }))
-
+    async function registerUser(e) {
+        e.preventDefault()
+        const response = axios.post('http://localhost:1337/api/register', {
+            headers:{
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                fname,
+                lname,
+                password,
+                city,
+                zip,
+                state,
+                address,
+            })
+        })
+        const data = await response.json()
+        console.log(data)
     }
 
     return(
         <FormContainer>
             <H1>Sign Up</H1>
-            <Form onSubmit={(e) => handleSubmit(e)}>
+            <Form onSubmit={registerUser}>
                 <Label>
                     First Name:
                     <Input 
