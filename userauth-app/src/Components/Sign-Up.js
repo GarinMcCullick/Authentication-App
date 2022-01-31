@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import styled from "styled-components"
-import axios from "axios"
 
 const H1 = styled.h1`
     color:black;
@@ -61,7 +60,8 @@ export default function Login() {
 
     async function registerUser(e) {
         e.preventDefault()
-        const response = axios.post('http://localhost:1337/api/register', {
+        const response = await fetch('http://localhost:1337/api/register', {
+            method: 'POST',
             headers:{
                 'Content-Type': 'application/json',
             },
@@ -73,9 +73,17 @@ export default function Login() {
                 zip,
                 state,
                 address,
+                email,
             })
         })
         const data = await response.json()
+
+        if (data.status === 'ok') {
+            alert('Registration Successful!')
+            window.location.href = '/account'
+        } else {
+            alert('oops somethings not right please check your information')
+        }
         console.log(data)
     }
 
