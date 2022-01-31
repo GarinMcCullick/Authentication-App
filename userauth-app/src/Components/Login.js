@@ -49,7 +49,7 @@ const Submit = styled.button`
 `
 
 export default function Login() {
-    const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
     const dispatch = useDispatch();
@@ -58,7 +58,7 @@ export default function Login() {
         e.preventDefault();
 
         dispatch(login({
-            name:name,
+            name:email,
             password:password,
             loggedIn:true,
         }))
@@ -69,12 +69,12 @@ export default function Login() {
             <H1>Login</H1>
             <Form onSubmit={(e) => handleSubmit(e)}>
                 <Label>
-                    Username:
+                    Email:
                     <Input 
                     type="text" 
-                    placeholder="Username" 
-                    value={name} 
-                    onChange={(e) => setName(e.target.value)}></Input>
+                    placeholder="Email" 
+                    value={email} 
+                    onChange={(e) => setEmail(e.target.value)}></Input>
                 </Label>
                 <Label>
                     Password:
