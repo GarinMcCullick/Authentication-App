@@ -14,8 +14,8 @@ function App() {
           <Nav />
           <Routes>
             <Route path="/" exact element={<Login />} />
-            <Route path="/signup" exact element={<SignUp />} />
-            <Route path="/account" exact element={<Account />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path='/account' element={ <Account />} />
           </Routes>
         </header>
       </div>
