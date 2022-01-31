@@ -1,7 +1,8 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { useDispatch } from 'react-redux'
 import { login } from "../features/userSlice"
 import styled from "styled-components"
+import jwt from 'jsonwebtoken'
 
 const H1 = styled.h1`
     color:black;
@@ -54,14 +55,45 @@ export default function Login() {
 
     const dispatch = useDispatch();
 
-    const handleSubmit = (e) => {
+    useEffect(() =>{
+        const token = localStorage.getItem('token')
+        if(token){
+            const user = jwt.decode(token)
+            if(!user) {
+                localStorage.removeItem('token')
+                window.location.href = '/'
+            }
+        }
+    })
+
+    async function handleSubmit(e) {
         e.preventDefault();
 
-        dispatch(login({
+        const response = await fetch('http://localhost:1337/api/login', {
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email,
+                password,
+            })
+        })
+        const data = await response.json()
+        if(data.user) {
+            localStorage.setItem('token', data.user)
+            alert("Login Successful")
+            window.location.href = '/account'
+        } else {
+            alert("Please check your username and password")
+        }
+        console.log(data)
+
+        /*dispatch(login({
             name:email,
             password:password,
             loggedIn:true,
-        }))
+        }))*/
     }
 
     return(
