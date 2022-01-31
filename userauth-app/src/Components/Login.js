@@ -26,17 +26,6 @@ const Form = styled.form`
     color:black;
 `
 
-const Link = styled.div`
-    color:black;
-    display:flex;
-    flex-flow:column wrap;
-`
-
-const P = styled.p`
-    text-align:center;
-    margin:0.5rem;
-`
-
 const Label = styled.label`
     display:flex;
     flex-flow:column wrap;
@@ -97,11 +86,6 @@ export default function Login() {
                 </Label>
                 <Submit type="submit">Submit</Submit>
             </Form>
-            
-            <Link>
-                <P>or</P>
-                <P>Sign Up</P>
-            </Link>
         </FormContainer>
     )
 }
